@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - CMS{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="display-4 fw-bold">Welcome to the CMS</h1>
+    <p class="lead">Your platform to create, manage, and share articles effortlessly.</p>
+    
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{% url 'article_list' %}" class="btn btn-primary btn-lg mx-2">View Articles</a>
+        <a href="{% url 'add_article' %}" class="btn btn-warning btn-lg mx-2 text-dark">+ Add Article</a>
+    </div>
+</div>
+
+<!-- Featured Articles Section -->
+<section class="container mt-5">
+    <h2 class="text-center">Featured Articles</h2>
+    <div class="row mt-4">
+        {% for article in articles %}
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title }}</h5>
+                    <p class="card-text">{{ article.content|truncatechars:100 }}</p>
+                    <a href="{% url 'article_detail' article.id %}" class="btn btn-outline-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No articles available yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
